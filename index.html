@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="https://about.google/" target="_blank" rel="noopener">About</a>
+    <a href="https://store.google.com/" target="_blank" rel="noopener">Store</a>
+    <div class="topbar-spacer"></div>
+    <a href="https://mail.google.com/" target="_blank" rel="noopener">Gmail</a>
+    <a href="https://images.google.com/" target="_blank" rel="noopener">Images</a>
+    <button class="apps-button" aria-label="Google apps">⋮⋮⋮</button>
+    <a class="sign-in" href="https://accounts.google.com/" target="_blank" rel="noopener">Sign in</a>
+  </header>
+
+  <main class="search-page">
+    <div class="logo" aria-label="Search">Search</div>
+    <form class="search-form" action="https://www.google.com/search" method="get">
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="query" name="q" type="search" autocomplete="off" aria-label="Search" autofocus />
+        <button class="clear-button" type="button" aria-label="Clear search">×</button>
+        <span class="divider"></span>
+        <button class="voice-button" type="button" aria-label="Voice search">🎙</button>
+      </div>
+      <div class="actions">
+        <button type="submit">Search</button>
+        <button type="button" id="lucky">I'm Feeling Lucky</button>
+      </div>
+    </form>
+    <p class="language-line">Search the web with <a href="https://www.google.com/" target="_blank" rel="noopener">Google</a></p>
+  </main>
+
+  <footer>
+    <div class="country">Your Search</div>
+    <div class="footer-links">
+      <div>
+        <a href="https://ads.google.com/" target="_blank" rel="noopener">Advertising</a>
+        <a href="https://smallbusiness.withgoogle.com/" target="_blank" rel="noopener">Business</a>
+        <a href="https://www.google.com/search/howsearchworks/" target="_blank" rel="noopener">How Search works</a>
+      </div>
+      <div>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
+        <a href="https://support.google.com/" target="_blank" rel="noopener">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.querySelector('.search-form');
+    const input = document.querySelector('#query');
+    const clear = document.querySelector('.clear-button');
+    const lucky = document.querySelector('#lucky');
+
+    function updateClearButton() {
+      clear.style.visibility = input.value ? 'visible' : 'hidden';
+    }
+
+    input.addEventListener('input', updateClearButton);
+    clear.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+      updateClearButton();
+    });
+    lucky.addEventListener('click', () => {
+      const query = input.value.trim();
+      if (query) window.location.href = `https://www.google.com/search?btnI=1&q=${encodeURIComponent(query)}`;
+      else input.focus();
+    });
+    form.addEventListener('submit', (event) => {
+      if (!input.value.trim()) event.preventDefault();
+    });
+    updateClearButton();
+  </script>
+</body>
+</html>
